@@ -12,6 +12,12 @@
     - build-essential
     - libssl-dev
 
+- stat:
+  sudo: yes
+  sudo_user: "{{ nvm_user }}"
+    path: ~/.nvm
+  register: nvm_folder
+
 - name: NVM | Install nvm
   sudo: yes
   sudo_user: "{{ nvm_user }}"
@@ -19,6 +25,7 @@
     repo: https://github.com/creationix/nvm.git
     dest: "~/.nvm"
     version: "{{ nvm_version }}"
+  when: not (nvm_folder.stat.exists and nvm_folder.stat.isdir)
 
 - name: NVM | Source nvm in ~/.profile
   sudo: yes
