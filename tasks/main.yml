@@ -3,6 +3,7 @@
   sudo: yes
   apt:
     pkg: "{{ item }}"
+    state: {{ nvm_packages_state }}
     update_cache: yes
     cache_valid_time: 3600
   with_items:
