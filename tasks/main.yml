@@ -13,9 +13,7 @@
     - libssl-dev
 
 - stat:
-  sudo: yes
-  sudo_user: "{{ nvm_user }}"
-    path: ~/.nvm
+    path: "/home/{{ nvm_user }}/.nvm"
   register: nvm_folder
 
 - name: NVM | Install nvm
