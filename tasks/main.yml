@@ -1,6 +1,6 @@
 ---
 - name: NVM | Install NVM dependencies
-  sudo: yes
+  become: yes
   apt:
     pkg: "{{ item }}"
     state: "{{ nvm_package_state }}"
@@ -17,8 +17,8 @@
   register: nvm_folder
 
 - name: NVM | Install nvm
-  sudo: yes
-  sudo_user: "{{ nvm_user }}"
+  become: yes
+  become_user: "{{ nvm_user }}"
   git:
     repo: https://github.com/creationix/nvm.git
     dest: "~/.nvm"
@@ -26,8 +26,8 @@
   when: not (nvm_folder.stat.exists and nvm_folder.stat.isdir)
 
 - name: NVM | Source nvm in ~/.profile
-  sudo: yes
-  sudo_user: "{{ nvm_user }}"
+  become: yes
+  become_user: "{{ nvm_user }}"
   lineinfile:
     dest: ~/.profile
     line: source ~/.nvm/nvm.sh
